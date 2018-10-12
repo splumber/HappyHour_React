@@ -1,6 +1,10 @@
 const router = require("express").Router();
-const listingRoutes = require("./listingRoutes");
+const bookRoutes = require("./books");
 
-router.use("/listing", listingRoutes);
+//NEED TO UPDATE ROUTES FOR APP
+
+
+// Book routes
+router.use("/books", bookRoutes);
 
 module.exports = router;
