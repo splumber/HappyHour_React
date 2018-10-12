@@ -1,4 +1,4 @@
 module.exports = {
-    Listing: require("./listing"),
-    Booking: require("./booking")
+  Restaurant: require('./Restaurant'),
+  Deal: require('./Deal')
 };
