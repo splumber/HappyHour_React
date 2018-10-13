@@ -16,7 +16,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import InboxIcon from '@material-ui/icons/Inbox';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import SimpleMap from "../pages/SimpleMap";
 
 const styles = {
   list: {
@@ -27,18 +26,28 @@ const styles = {
 
 class TemporaryDrawer extends React.Component {
   state = {
-    left: false,
-    object: this.props.id
+    // panels: {
+    //   left: {
+    //     visible: false
+    //   },
+    //   right: {
+    //     visible: false
+    //   }
+    // },
+    object: this.props.id,
+    navOpen: this.props.currentTab 
   };
 
-  toggleDrawer = (side, open) => () => {
-    this.setState({
-      [side]: open,
-    });
-  };
+  // toggleDrawerVisibility = (panelName) => {
+  //   const {panels} = this.state
 
+  //   panels[panelName].visible = !panels[panelName].visible
+
+  //   this.setState({panels});
+  // }
+  
   render() {
-    const { classes } = this.props;
+    const { classes, currentTab, toggleDrawerVisibility, drawerVisible } = this.props;
 
     const sideList = (
       <div className={classes.list}>
@@ -47,7 +56,7 @@ class TemporaryDrawer extends React.Component {
             <Avatar>
               <ImageIcon />
             </Avatar>
-            <ListItemText primary="FOOD/DRINK " secondary="Monday 12pm-7pm" />
+            <ListItemText primary="FOOD/DRINK" secondary="Monday 12pm-7pm" />
           </ListItem>
         </List>
         <List>
@@ -58,35 +67,23 @@ class TemporaryDrawer extends React.Component {
             <ListItemText primary="You can get 8 or 9 or even 10 drinks for like pretty much a chicken ya dig? A WHOLE CHICKEN." />
           </ListItem>
         </List>
-        {/* THIS IS WHERE WE DO A MAP FROM THE DEALS COMPONENT AND WE GRAB THE SHIT FROM THE THUMBNAILS TO GET THE RIGHT SHIT */}
-        {/* <Divider />
-        <List>{mailFolderListItems}</List>
-        
-        <Divider />
-        <List>{otherMailFolderListItems}</List> */}
       </div>
     );
 
+    console.log(classes)
     return (
       <div>
-        {console.log("Restaurant state")}
-        {console.log(this.props)}
-        {console.log('Drawer props and classes below')}
-        {console.log(this.props)}
-        {console.log(classes)}
-        <MenuIcon onClick={this.toggleDrawer('left', true)}>Open Left</MenuIcon>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <MenuIcon onClick={toggleDrawerVisibility}>Open Left</MenuIcon>
+        {/* <input type="text" value = {this.props.currentTab} onChange={this.toggleDrawerVisibility('left', true)}/> */}
+        <Drawer open={drawerVisible} currentTab={currentTab} onClose={toggleDrawerVisibility}>
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
+            onClick={toggleDrawerVisibility}
+            onKeyDown={toggleDrawerVisibility}
           >
-
-            <MediaCard onChange={this.toggleDrawer('left', true)} currentTab = {this.props.currentTab}/>
+            <MediaCard currentTab={currentTab}/>
             {sideList}
-
-
           </div>
         </Drawer>
       </div>

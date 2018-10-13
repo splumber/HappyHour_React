@@ -20,70 +20,71 @@ import Restaurants from "./RestaurantList.json";
 //We're going to have to make our App smart so that we can pass props etc. to it and like actually use it for stuff
 
 class Home extends Component {
-    state = {
-        tabValue: 0,
-        stepperValue: 0,
-        Restaurants: Restaurants,
-        restaurantSelected: "",
-        currentTab: 'placeholder',
+  state = {
+    tabValue: 0,
+    stepperValue: 0,
+    Restaurants: Restaurants,
+    restaurantSelected: "",
+    currentTab: 'placeholder',
+    drawerVisible: false
+  };
 
-    };
-    handleTabChange = (event, tabValue) => {
-        this.setState({ tabValue });
-    };
-    
-    handleStepperChange = (event, stepperValue) => {
+  toggleDrawerVisibility = () => {
+    this.setState({
+      drawerVisible: !this.state.drawerVisible
+    })
+  }
+
+  handleTabChange = (event, tabValue) => {
+    this.setState({ tabValue });
+  };
+  
+  handleStepperChange = (event, stepperValue) => {
     this.setState({ stepperValue });
-    };
-
-    handleStepperChangeIndex = index => {
+  };
+  
+  handleStepperChangeIndex = index => {
     this.setState({ stepperValue: index });
-    };
+  };
+  
+  filterRestaurants = (card) => {
+    this.setState({ 
+      currentTab: card,
+      drawerVisible: !this.state.drawerVisible
+    })
+  }
+  
+  render() {
+    const {drawerVisible, currentTab, Restaurants} = this.state
 
-    filterRestaurants = (callback) => {
-        // this.setState({ restaurantSelected: this.state.Restaurants._id  })
-        console.log(`I got ${callback}`);
-        this.setState({ currentTab: callback  })
+    // console.log(this.state.Restaurants);
+    console.log('Restaraunt latitude below');
+    console.log(Restaurants[0].coordinates.latitude);
+    // console.log(this.state.Restaurants.restaurantName);
+   
+    return(
+      <div>
+        <Appbar 
+          currentTab={currentTab}
+          drawerVisible={drawerVisible} 
+          toggleDrawerVisibility={this.toggleDrawerVisibility} 
+        />
 
-        // console.log("A restaurant is clicked");
-    }
-
-    
-    render(){
-        // console.log(this.state.Restaurants);
-        console.log('Restaraunt latitude below');
-        console.log(this.state.Restaurants[0].coordinates.latitude);
-        // console.log(this.state.Restaurants.restaurantName);
-        return(
-            
-        <div>
-            {console.log ('currentTab name below')}
-            <Appbar currentTab = {this.state.currentTab}/>
-            {console.log('NEW STATE BELOW')}
-            {console.log(this.state)}
-            <SimpleMap
-                // latitude={this.state.Restaurants[0].coordinates.latitude}
-                // longitude={this.state.Restaurants[0].coordinates.longitude}
-                // restCat={this.state.Restaurants.categories}
-                Restaurants={this.state.Restaurants}
-                filterRestaurants = {this.filterRestaurants}
-            /> 
-         
-            <Tabs 
-                tabValue={this.state.tabValue}
-                onChange={this.handleTabChange} />
-            
-            <Stepper
-                stepperValue={this.state.stepperValue}
-                onChange={this.handleStepperChange}/>
-            
-    
-
-
-
-        </div>
-
-
-        )}
+        <SimpleMap
+          Restaurants={Restaurants}
+          filterRestaurants={this.filterRestaurants}
+        /> 
+          
+        <Tabs 
+          tabValue={this.state.tabValue}
+          onChange={this.handleTabChange} />
+        
+        <Stepper
+          stepperValue={this.state.stepperValue}
+          onChange={this.handleStepperChange}/>  
+      </div>  
+    )
+  }
 }
-export default Home;
+
+  export default Home;

@@ -22,19 +22,16 @@ const styles = {
   }
 };
 
-function ButtonAppBar(props) {
-  const { classes } = props;
+function ButtonAppBar (props) {
+  const { classes, drawerVisible, currentTab, toggleDrawerVisibility } = props;
   
   return (
-   
     <div className={classes.root}>
       <AppBar position="fixed" >
-      {console.log('Appbar props below')}
-      {console.log(props)}
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             {/* <MenuIcon/> */}
-            <Drawer currentTab = {props.currentTab} />
+            <Drawer drawerVisible={drawerVisible} currentTab={currentTab} toggleDrawerVisibility={toggleDrawerVisibility} />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Very Happy Hours Orlando

@@ -25,7 +25,6 @@ const styles = theme => ({
     zIndex: "2",
     display: "flex",
     backgroundColor: theme.palette.background.paper,
-
   },
 });
 
@@ -53,10 +52,6 @@ class ScrollableTabsButtonAuto extends React.Component {
             <Tab label="Swedish" />
             <Tab label="Mediterranean" />
             <Tab label="Italian" />
-            <Tab label="BBQ" />
-            <Tab label="Thai" />
-            <Tab label="Vietnamese" />
-            <Tab label="Greek" />
           </Tabs>
         </AppBar>
         {/* {value === 0 && <TabContainer>American</TabContainer>}

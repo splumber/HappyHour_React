@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Drawer from '../Drawer/Drawer';
 
 
 import { STATES } from 'mongoose';
 const AnyReactComponent = ({ address1, address2, address3, restaurantName, hasFood, hasDrink, image, url, rating, review_count, id, onClick, thumbnail }) => <div myid = {id}>{<img  src={require('../Images/2xthumbnail.png')} id = {id} data-address1 = {address1} data-address2 = {address2} data-address3 = {address3} data-restaurantname = {restaurantName} data-hasfood = {hasFood} data-hasdrink = {hasDrink} data-image = {image} data-url = {url} data-rating = {rating} data-review_count = {review_count}  onClick={onClick}/>}</div>;
 
-// const button = ({ text }) => <div>{<button onClick={this.myFilter}><img src={require('../Images/1xLocation.png')} /></button>}</div>;
+const button = ({ text }) => <div>{<button onClick={this.myFilter}><img src={require('../Images/1xLocation.png')} /></button>}</div>;
 
 
 class SimpleMap extends Component {
@@ -18,14 +17,9 @@ class SimpleMap extends Component {
       latitude: props.latitude,
       longitude: props.longitude,
       categories: props.categories,
-      Restaurants: props.Restaurants
-
+      Restaurants: props.Restaurants,
     }
   }
-
-
-
-
 
   // the second level of our lifecycle, a static prop that just exists
   static defaultProps = {
@@ -36,77 +30,102 @@ class SimpleMap extends Component {
     zoom: 11
   };
 
-  componentDidMount() {
+  checkGeolocation = () => {
+    if (!navigator.geolocation) {
+      console.log('Geolocation unsupported!')
+      return
+    }
 
-    // var x = document.getElementById("demo");
-    let y = 'Geolocation unsupported';
-    console.log('I was called');
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log('Show position called');
+      if (!position.coords) {
+        console.log('Coords not found')
+        return
+      }
 
-    if (navigator.geolocation) {
-      console.log('Geolocation enabled');
-      navigator.geolocation.getCurrentPosition((position) => {
-
-        console.log('Show position called');
-        if (position.coords) {
-          this.setState({
-            coords: position.coords,
-            center: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          })
+      this.setState({
+        coords: position.coords,
+        center: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         }
-        // return "Latitude: " + position.coords.latitude +
-        // "<br>Longitude: " + position.coords.longitude;
-      });
-
-    }
-
-    else {
-      return y;
-    }
-
-
+      })
+    })
   }
 
-  myFunction = (event) => {
+  componentDidMount() {
+    this.checkGeolocation()
+  }
 
+  handleRestaurantClick = (restaurant, event) => {
+    // {_id: "wmV8YffVA6W24Vojkwjshw", coordinates: {…}, address: Array(1), categories: Array(4), restaurantName: "Treehouse Truck", …}
+    // address: ["Orlando, FL 32805"]
+    // categories: (4) [{…}, {…}, {…}, {…}]
+    // coordinates: {latitude: 28.53755, longitude: -81.39191}
+    // hasDrink: false
+    // hasFood: false
+    // image: "https://s3-media2.fl.yelpcdn.com/bphoto/HUOUo4fMgxV4Gu6tg8yv9Q/o.jpg"
+    // phone: "(407) 346-8670"
+    // rating: 4.5
+    // restaurantAlias: "treehouse-truck-orlando-2"
+    // restaurantName: "Treehouse Truck"
+    // review_count: 88
+    // url: "https://www.yelp.com/biz/treehouse-truck-orlando-2?adjust_creative=MApaTOiBmRxFFCPpctymVw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=MApaTOiBmRxFFCPpctymVw"
+    // __v: 0
+    // _id: "wmV8YffVA6W24Vojkwjshw"
 
-    var myaddress3 = '';
-    var myaddress2 = '';
+    const [address1 = '', address2 = '', address3 = ''] = restaurant.address 
 
-    if (event.target.attributes.getNamedItem('data-address3') == null){
-      console.log('This is null');
-      myaddress3 = '';
+    const card = {
+      name: restaurant.restaurantName,
+      hasFood: restaurant.hasFood,
+      hasDrink: restaurant.hasDrink,
+      image: restaurant.image,
+      url: restaurant.url,
+      rating: restaurant.rating,
+      reviewCount: restaurant.review_count,
+      address1,
+      address2,
+      address3
     }
-    else{
-      myaddress3 = event.target.attributes.getNamedItem('data-address3').value
-    }
 
-    if (event.target.attributes.getNamedItem('data-address2') == null){
-      console.log('This is null');
-      myaddress2 = '';
-    }
-    else{
-      myaddress2 = event.target.attributes.getNamedItem('data-address2').value
-    }
+    this.props.filterRestaurants(card)
+    // var myaddress3 = '';
+    // var myaddress2 = '';
 
-    const myobject = {
-      name: event.target.attributes.getNamedItem('data-restaurantname').value,
-      hasFood: event.target.attributes.getNamedItem('data-hasfood').value,
-      hasDrink: event.target.attributes.getNamedItem('data-hasdrink').value,
-      image: event.target.attributes.getNamedItem('data-image').value,
-      url: event.target.attributes.getNamedItem('data-url').value,
-      rating: event.target.attributes.getNamedItem('data-rating').value,
-      reviewCount: event.target.attributes.getNamedItem('data-review_count').value,
-      address1: event.target.attributes.getNamedItem('data-address1').value,
-      address2: myaddress2,
-      address3: myaddress3
-    }
+    // if (event.target.attributes.getNamedItem('data-address3') == null){
+    //   console.log('This is null');
+    //   myaddress3 = '';
+    // }
+    // else{
+    //   myaddress3 = event.target.attributes.getNamedItem('data-address3').value
+    // }
 
-    console.log(myobject);
+    // if (event.target.attributes.getNamedItem('data-address2') == null){
+    //   console.log('This is null');
+    //   myaddress2 = '';
+    // }
+    // else{
+    //   myaddress2 = event.target.attributes.getNamedItem('data-address2').value
+    // }
+
+    // const myobject = {
+    //   name: event.target.attributes.getNamedItem('data-restaurantname').value,
+    //   hasFood: event.target.attributes.getNamedItem('data-hasfood').value,
+    //   hasDrink: event.target.attributes.getNamedItem('data-hasdrink').value,
+    //   image: event.target.attributes.getNamedItem('data-image').value,
+    //   url: event.target.attributes.getNamedItem('data-url').value,
+    //   rating: event.target.attributes.getNamedItem('data-rating').value,
+    //   reviewCount: event.target.attributes.getNamedItem('data-review_count').value,
+    //   address1: event.target.attributes.getNamedItem('data-address1').value,
+    //   address2: myaddress2,
+    //   address3: myaddress3,
+    //   click: true
+    // }
+
+    // console.log(myobject);
   
-    this.props.filterRestaurants(myobject);
+    // this.props.filterRestaurants(myobject);
 
     // let callback = this.state.Restaurants[0].coordinates.latitude;
     // console.log(this.state.Restaurants[0].coordinates.latitude);
@@ -142,24 +161,11 @@ class SimpleMap extends Component {
 
               {this.state.Restaurants.map(restaurant => (
                 <AnyReactComponent
-                  id={restaurant._id}
+                  restaurant={restaurant}
                   key={restaurant._id}
                   lat={restaurant.coordinates.latitude}
                   lng={restaurant.coordinates.longitude}
-                  address1={restaurant.address[0]}
-                  address2={restaurant.address[1]}
-                  address3={restaurant.address[2]}
-                  restaurantName = {restaurant.restaurantName}
-                  hasFood = {restaurant.hasFood}
-                  hasDrink ={restaurant.hasFood}
-                  image = {restaurant.image}
-                  url = {restaurant.url}
-                  text={'This is some text'}
-                  rating = {restaurant.rating}
-                  review_count = {restaurant.review_count}
-                  thumbnail = '../Images/1xLocation.png'
-                  onClick={this.myFunction}
-
+                  onClick={this.handleRestaurantClick.bind(this, restaurant)}
                 />
 
               ))}
@@ -186,8 +192,7 @@ class SimpleMap extends Component {
                   lng={restaurant.coordinates.longitude}
                   address={restaurant.address[0]}
                   text={'This is some text'}
-                  onClick={this.myFunction}
-                  onClick={this.toggleDrawer} 
+                  onClick={this.handleRestaurantClick}
 
                 />
 
@@ -197,14 +202,6 @@ class SimpleMap extends Component {
 
 
         }
-        {/* <div>
-        This is our Div
-      </div>
-      <div>
-        {this.state.latitude}
-      </div> */}
-
-
       </div>
     );
   }
