@@ -29,43 +29,67 @@ const styles = theme => ({
 });
 
 class ScrollableTabsButtonAuto extends React.Component {
+    state = {
+      catState: this.props.restaurant,
+      value: "All"
+    }
 
+    callFoodCat = (event, value) => {
+      console.log('TARGET BELOW');
+      console.log(value);
+      // send callback
+      // console.log(event.target.i);
+      console.log(event.target.attributes.getNamedItem('value'));
+      this.props.sendFoodCat(value)
+    }
 
   render() {
+
     const { classes } = this.props;
+    const { value } = this.state;
+
+
 
     return (
       <div className={classes.root}>
+    {console.log("THIS IS REST CAT")}
+    {/* {console.log(this.props.tabValue)} */}
+    {console.log(this.state.value)}
+    {console.log(this.props)}
+
+
         <AppBar position="static" color="default">
           <Tabs
-            value={this.props.tabValue}
-            onChange={this.props.onChange}
+            value={value}
+            onChange={this.callFoodCat}
             indicatorColor="primary"
             textColor="primary"
             scrollable
             scrollButtons="auto"
+            
           >
-            <Tab label="American" />
-            <Tab label="Chinese" />
-            <Tab label="Tex-Mex" />
-            <Tab label="French" />
-            <Tab label="Swedish" />
-            <Tab label="Mediterranean" />
-            <Tab label="Italian" />
-            <Tab label="BBQ" />
-            <Tab label="Burgers" />
-            <Tab label="Thai" />
-            <Tab label="Vietnamese" />
-            <Tab label="Cafes" />
+            <Tab value = 'All' label="All" />
+            <Tab value = 'American' label="American" />
+            <Tab value = 'Chinese' label="Chinese" />
+            <Tab value = 'Tex-Mex' label="Tex-Mex" />
+            <Tab value = 'French' label="French" />
+            <Tab value = 'Swedish' label="Swedish" />
+            <Tab value = 'Mediterranean' label="Mediterranean" />
+            <Tab value = 'Italian' label="Italian" />
+            <Tab value = 'Barbeque' label="BBQ" />
+            <Tab value = 'Burgers' label="Burgers" />
+            <Tab value = 'Thai' label="Thai" />
+            <Tab value = 'Vietnamese' label="Vietnamese" />
+            <Tab value = 'Cafes' label="Cafes" />
           </Tabs>
         </AppBar>
-        {/* {value === 0 && <TabContainer>American</TabContainer>}
-        {value === 1 && <TabContainer>Chinese</TabContainer>}
-        {value === 2 && <TabContainer>Tex-Mex</TabContainer>}
-        {value === 3 && <TabContainer>French</TabContainer>}
-        {value === 4 && <TabContainer>Swedish</TabContainer>}
-        {value === 5 && <TabContainer>Mediterranean</TabContainer>}
-        {value === 6 && <TabContainer>Italian</TabContainer>} */}
+        {value === "American" && <TabContainer>American</TabContainer>}
+        {value === "Chinese" && <TabContainer>Chinese</TabContainer>}
+        {value === "Tex-Mex" && <TabContainer>Tex-Mex</TabContainer>}
+        {value === "French" && <TabContainer>French</TabContainer>}
+        {value === "Swedish" && <TabContainer>Swedish</TabContainer>}
+        {value === "Mediterranean" && <TabContainer>Mediterranean</TabContainer>}
+        {value === "Italian" && <TabContainer>Italian</TabContainer>}
       </div>
     );
   }
