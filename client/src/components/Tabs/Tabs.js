@@ -52,6 +52,11 @@ class ScrollableTabsButtonAuto extends React.Component {
             <Tab label="Swedish" />
             <Tab label="Mediterranean" />
             <Tab label="Italian" />
+            <Tab label="BBQ" />
+            <Tab label="Burgers" />
+            <Tab label="Thai" />
+            <Tab label="Vietnamese" />
+            <Tab label="Cafes" />
           </Tabs>
         </AppBar>
         {/* {value === 0 && <TabContainer>American</TabContainer>}
