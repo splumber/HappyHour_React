@@ -18,6 +18,7 @@ const restaurantSchema = new Schema({
   url: { type: String, required: true }, //Link to yelp page
   rating: { type: Number, required: true }, //Current rating
   review_count: { type: Number, required: true }, //Current number of reviews
+  deals: {type: Array, required: false}
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

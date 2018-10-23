@@ -43,6 +43,12 @@ class ScrollableTabsButtonAuto extends React.Component {
       this.props.sendFoodCat(value)
     }
 
+    pickFoodCat = (event, value) => {
+      console.log('Food Cat picked');
+      // console.log(this.props.filter(value))
+      // this.props.filter(value)
+    }
+
   render() {
 
     const { classes } = this.props;
@@ -83,6 +89,7 @@ class ScrollableTabsButtonAuto extends React.Component {
             <Tab value = 'Cafes' label="Cafes" />
           </Tabs>
         </AppBar>
+        {value === "All" && <TabContainer>All</TabContainer>}
         {value === "American" && <TabContainer>American</TabContainer>}
         {value === "Chinese" && <TabContainer>Chinese</TabContainer>}
         {value === "Tex-Mex" && <TabContainer>Tex-Mex</TabContainer>}
@@ -90,6 +97,11 @@ class ScrollableTabsButtonAuto extends React.Component {
         {value === "Swedish" && <TabContainer>Swedish</TabContainer>}
         {value === "Mediterranean" && <TabContainer>Mediterranean</TabContainer>}
         {value === "Italian" && <TabContainer>Italian</TabContainer>}
+        {value === "Barbeque" && <TabContainer>Barbeque</TabContainer>}
+        {value === "Burgers" && <TabContainer>Burgers</TabContainer>}
+        {value === "Thai" && <TabContainer>Thai</TabContainer>}
+        {value === "Vietnamese" && <TabContainer>Vietnamese</TabContainer>}
+        {value === "Cafes" && <TabContainer>Cafes</TabContainer>}
       </div>
     );
   }

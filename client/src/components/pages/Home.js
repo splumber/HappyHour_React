@@ -11,7 +11,7 @@ import Tabs from "../Tabs/Tabs";
 import Appbar from "../Appbar/Appbar";
 import Stepperfd from "../FoodDrinkStepper/fdStepper";
 // import Drawer from "./components/Drawer/Drawer";
-import Restaurants from "./RestaurantList.json";
+// import Restaurants from "./RestaurantList.json";
 
 
 
