@@ -42,6 +42,7 @@
     "react-geolocated": "^2.4.0",
     "react-geolocation": "^1.0.4",
     "react-google-maps": "^9.4.5",
-    "react-moment": "^0.8.1"
+    "react-moment": "^0.8.1",
+    "react-scripts": "^2.0.5"
   }
 }
