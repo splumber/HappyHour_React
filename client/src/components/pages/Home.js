@@ -28,7 +28,7 @@ class Home extends Component {
     hasFood: "True",
     hasDrink: 'True',
     stepperValue: 0,
-    Restaurants: Restaurants,
+    // Restaurants: Restaurants,
     restaurantSelected: "",
     currentTab: 'placeholder',
     drawerVisible: false
