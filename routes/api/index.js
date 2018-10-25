@@ -1,10 +1,9 @@
-const router = require("express").Router();
-const bookRoutes = require("./books");
+const router = require('express').Router()
+const restaurants = require('./restaurants')
 
-//NEED TO UPDATE ROUTES FOR APP
-
+// NEED TO UPDATE ROUTES FOR APP
 
 // Book routes
-router.use("/books", bookRoutes);
+router.use('/restaurants', restaurants)
 
-module.exports = router;
+module.exports = router

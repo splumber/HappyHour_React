@@ -1,4 +1,5 @@
 module.exports = {
   Restaurant: require('./Restaurant'),
-  Deal: require('./Deal')
-};
+  Deal: require('./Deal'),
+  User: require('./User')
+}
