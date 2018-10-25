@@ -7,12 +7,13 @@
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "start:client": "react-scripts start",
-    "build": "react-scripts build",
+    "client": "cd client && npm run start",
+    "install": "cd client && yarn install",
+    "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
   "engines": {
-    "node": ">=8.10.0"
+    "node": "10.1.0"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,6 @@
   },
   "author": "",
   "license": "ISC",
-  "proxy": "http://localhost:3001/",
-  "private": true,
   "bugs": {
     "url": "https://github.com/splumber/HappyHour_React/issues"
   },
@@ -40,22 +39,16 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "mongoose": "^5.0.17",
-    "prop-types": "^15.6.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.5.2",
     "react-facebook-login": "^4.1.1",
     "react-geolocated": "^2.4.0",
     "react-geolocation": "^1.0.4",
+    "react-google-login": "^3.2.1",
     "react-google-maps": "^9.4.5",
     "react-live-clock": "^2.0.3",
     "react-moment": "^0.8.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.3"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "react-select": "^2.1.0",
+    "react-twitter-auth": "0.0.12",
+    "socket.io": "^2.1.1"
+  }
 }
